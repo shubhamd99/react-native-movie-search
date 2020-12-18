@@ -16,6 +16,12 @@ export default function mainStore(state = initialState, action) {
             return state;
         }
 
+        case "ADD_DATA" :
+            return {
+                ...state,
+                data: action.payload,
+            };
+
         default:
             return state;
     }
