@@ -5,4 +5,5 @@ module.exports = {
     inactiveTintColor: 'gray',
     noContentAvailableIconSize: 120,
     fadeColor: '#C4C4C4',
+    greyColor: '#A9A9A9',
 }

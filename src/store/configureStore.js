@@ -9,9 +9,9 @@ import promise from './promise';
 const persistConfig = {
   key: 'root', // key to refer in AsyncStorage Object
   storage: AsyncStorage,
-  // blacklist: ['movieStore'], // navigation will not be persisted
+  blacklist: ['movieStore'], // navigation will not be persisted
   whitelist: [
-    'movieStore',
+    // 'movieStore',
     'shortListedMovies', // only mainStore will be persisted
   ],
 }

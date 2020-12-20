@@ -1,45 +1,37 @@
 import React from 'react';
-import { ActivityIndicator, View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { useSelector, shallowEqual } from 'react-redux';
 import theme from "../themes/base-theme";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import MovieCard from './MovieCard';
 
-const MovieList = () => {
-    const { movies, loading } = useSelector(state => state.movieStore, shallowEqual); // State, Equality Function
-    // const { savedMovies } = useSelector(state => state.shortListedMovies, shallowEqual); // State, Equality Function
+const ShortList = () => {
+    const { savedMovies } = useSelector(state => state.shortListedMovies, shallowEqual); // State, Equality Function
+    const savedMoviesArray = savedMovies ? Object.values(savedMovies) : [];
+    // console.log("savedMovies", savedMovies)
 
-    // Spinner
-    if (loading) {
+    if (savedMoviesArray.length === 0) {
         return (
             <View style={styles.center}>
-                <ActivityIndicator size="large" color={theme.brandPrimary} />
-            </View>
-        )
-    }
-
-    if (movies.length === 0) {
-        return (
-            <View style={styles.center}>
-                <MaterialCommunityIcons name="movie-search" size={theme.noContentAvailableIconSize}
+                <MaterialIcons name="videocam-off" size={theme.noContentAvailableIconSize}
                 style={{ color: theme.fadeColor }} />
+                <Text style={styles.title}>No Shortlisted Movies to show</Text>
             </View>
         )
     }
 
     const renderItem = ({ item }) => {
-        return <MovieCard movie={item} isShortListedMovie={false} />;
+        return <MovieCard movie={item} isShortListedMovie={true} />;
     };
 
     return (
         <View style={styles.container}>
             <FlatList
-                data={movies}
+                data={savedMoviesArray}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => item.imdbID}
                 style={styles.container}
-                numColumns={2}
             />
         </View>
     );
@@ -57,7 +49,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    title: {
+        marginTop: 20,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: theme.fadeColor
     }
 });
 
-export default MovieList;
+export default ShortList;

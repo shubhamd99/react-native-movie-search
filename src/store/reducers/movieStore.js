@@ -10,13 +10,13 @@ export default function movieStore(state = initialState, action) {
     switch (action.type) {
 
          // persisted data replace the Redux store.
-         case REHYDRATE: {
-            if (action.payload) {
-                const incoming = action.payload && action.payload.movieStore;
-                if (incoming) return { ...state, ...incoming };   
-            }
-            return state;
-        }
+        //  case REHYDRATE: {
+        //     if (action.payload) {
+        //         const incoming = action.payload && action.payload.movieStore;
+        //         if (incoming) return { ...state, ...incoming };   
+        //     }
+        //     return state;
+        // }
 
         case ADD_MOVIES :
             return {
