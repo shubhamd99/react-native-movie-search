@@ -1,25 +1,30 @@
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialState = {
-    data: [],
+    savedMovies: [],
 }
 
-export default function mainStore(state = initialState, action) {
+export default function shortListedMovies(state = initialState, action) {
     switch (action.type) {
 
         // persisted data replace the Redux store.
         case REHYDRATE: {
             if (action.payload) {
-                const incoming = action.payload && action.payload.mainStore;
+                const incoming = action.payload && action.payload.shortListedMovies;
                 if (incoming) return { ...state, ...incoming };   
             }
             return state;
         }
 
-        case "ADD_DATA" :
+        case "ADD_SHORTLISTED_MOVIES" :
             return {
                 ...state,
-                data: action.payload,
+                savedMovies: action.payload,
+            };
+        case "CLEAR_SHORTLISTED_MOVIES" :
+            return {
+                ...state,
+                savedMovies: [],
             };
 
         default:

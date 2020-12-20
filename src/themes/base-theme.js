@@ -1,5 +1,8 @@
-import { Platform, Dimensions } from 'react-native';
-
 module.exports = {
-    brandPrimary: "#900C3F",
+    statusBarColorAndroid: '#900C3F',
+    brandPrimary: "#C70039",
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+    noContentAvailableIconSize: 120,
+    fadeColor: '#C4C4C4',
 }

@@ -1,61 +1,53 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const theme = require('./themes/base-theme');
 
-import Home from './components/Home';
-import About from './components/About';
+import MoviesPage from './pages/MoviePage';
+import ShortlistMoviesPage from './pages/ShortlistMoviesPage';
 
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
-function StackNavigator(props) {
+// Note: Arrow VS Regular Functions
+// Arrow functions do not have an "arguments" bindings, neither  have there own "this" and can never have duplicate named parameter
+// Regular functions are constructable and callable and they can be called by using "new" keyword
+
+function StackNavigator() {
     return (
-        <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home}
-            options={{
-                title: 'Home',
-                headerStyle: {
-                  backgroundColor: theme.brandPrimary,
-
+        <Tab.Navigator 
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconDiv = <Ionicons name={'home'} size={size} color={color} />;
+        
+                    if (route.name === 'Movies') {
+                        iconDiv = focused
+                        ? <Ionicons name={'home'} size={size} color={color} /> 
+                        : <Ionicons name={'home-outline'} size={size} color={color} />;
+                    } else if (route.name === 'Shortlist') {
+                        iconDiv = focused
+                        ? <MaterialCommunityIcons name={'movie-open'} size={size} color={color} /> 
+                        : <MaterialCommunityIcons name={'movie-open-outline'} size={size} color={color} />;
+                    }
+    
+                    // You can return any component that you like here!
+                    return iconDiv;
                 },
-                headerTintColor: '#fff',
-            }} />
-            <Stack.Screen name="About" component={About}
-            options={{
-                title: 'About',
-                headerStyle: {
-                  backgroundColor: theme.brandPrimary,
-
-                },
-                headerTintColor: '#fff',
-            }} />
-        </Stack.Navigator>
+            })}
+            tabBarOptions={{
+                activeTintColor: theme.brandPrimary,
+                inactiveTintColor: theme.inactiveTintColor,
+            }}
+        >
+            <Tab.Screen name="Movies" component={MoviesPage} />
+            <Tab.Screen name="Shortlist" component={ShortlistMoviesPage} />
+        </Tab.Navigator>
     );
 }
 
-class Navigator extends Component {
-
-    render() {
-        return <Drawer.Navigator initialRouteName="Home" drawerType="front">
-            <Drawer.Screen name="Home" component={StackNavigator} />
-        </Drawer.Navigator>
-    }
+const Navigator = () => {
+    return <StackNavigator />
 }
 
-Navigator.propTypes = {
-    data: PropTypes.array,
-}
-
-function bindAction(dispatch) {
-    return {}
-}
-
-const mapStateToProps = state => ({
-    data: state.mainStore.data,
-});
-
-export default connect(mapStateToProps, bindAction)(Navigator);
+export default Navigator;

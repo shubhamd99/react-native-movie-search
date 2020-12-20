@@ -1,6 +1,8 @@
 
-import mainStore from './mainStore';
+import movieStore from './movieStore';
+import shortListedMovies from './shortListedMovies';
 
 export default {
-  mainStore,
+  shortListedMovies,
+  movieStore,
 };

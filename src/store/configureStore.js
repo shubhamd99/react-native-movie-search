@@ -9,8 +9,10 @@ import promise from './promise';
 const persistConfig = {
   key: 'root', // key to refer in AsyncStorage Object
   storage: AsyncStorage,
+  // blacklist: ['movieStore'], // navigation will not be persisted
   whitelist: [
-    'mainStore', // only mainStore will be persisted
+    'movieStore',
+    'shortListedMovies', // only mainStore will be persisted
   ],
 }
 
@@ -20,6 +22,8 @@ export default function configureStore() {
 
   // Composes functions from right to left.
   const enhancer = compose(
+    // Redux provides with API called applyMiddleware which allows us to use custom middleware
+    // as well as Redux middlewares like redux-thunk and redux-promise.
     applyMiddleware(thunk, promise),
   );
 
