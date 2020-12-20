@@ -1,1 +1,1 @@
-# Example Setup App For React Redux and React Navigation
+# React Native Movie Search App
