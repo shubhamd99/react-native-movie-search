@@ -17,7 +17,7 @@ const MoviesPage = () => {
 
 	// Combination of DidMount, DidUpdate and WillUnmount for functional component
 	React.useEffect(() => {
-		if (searchTerm.length > 4) {
+		if (searchTerm.length > 3) {
 			dispatch(fetchMovies(searchTerm))
 		} else {
 			dispatch(clearMovies())
